@@ -68,139 +68,176 @@ job-search/
 └── .venv/                # Python virtual environment
 ```
 
-⸻
+---
 
 ## 🛠 Installation
 
-1. Clone the project
+### 1. Clone the project
 
+```bash
 git clone <your-repo-url>
 cd job-search
+```
 
-2. Install dependencies
+### 2. Install dependencies
 
-Uses uv or pip — either works.
+Use **uv** or **pip** — both work.
 
+```bash
 uv sync
+```
 
 or:
 
+```bash
 pip install -r requirements.txt
+```
 
-3. Install Playwright browsers
+### 3. Install Playwright browsers
 
+```bash
 playwright install
+```
 
-
-⸻
+---
 
 ## 🔐 Step 1 — Save your LinkedIn login session
 
-Run this once:
+Run this *once*:
 
+```bash
 python save_state.py
+```
 
-A Chrome window opens.
-Log in manually → wait until your feed loads → return to terminal → press Enter.
+A Chrome window will open.
 
-This saves:
+1. Log in to LinkedIn manually  
+2. Wait for your feed to load  
+3. Return to the terminal  
+4. Press **Enter**  
 
+This generates:
+
+```
 linkedin_state.json
+```
 
-All future scrapes will load your session automatically.
+All future scrapes will automatically load your saved login session.
 
-⸻
+---
 
 ## 🕷 Step 2 — Run the job scraper
 
+```bash
 python main.py
+```
 
-It will:
-	-	Navigate to LinkedIn job search results
-	-	Iterate pages (Next button)
-	-	Collect each job card
-	-	Click one-by-one
-	-	Expand “…more”
-	-	Extract full job description
-	-	Save everything into:
+This script will:
 
+- Open LinkedIn job search
+- Iterate through pages (Next → Next → Next…)
+- Collect all job cards
+- Click each job
+- Expand “**…more**” to reveal full description
+- Extract:
+  - Title  
+  - Company  
+  - Location  
+  - Description  
+  - URL  
+- Save everything into:
+
+```
 jobs.csv
+```
 
-Example CSV structure
+### Example CSV structure
 
+```text
 job_id,title,company,location,description,linkedin_url
 1,Data Engineer,Cisco,Remote,"full jd text...",https://linkedin.com/jobs/view/...
+```
 
+---
 
-⸻
+## 🤖 Step 3 — Score your jobs using Claude Code (FREE)
 
-🤖 Step 3 — Score your jobs using Claude Code (FREE)
-
-1. Install Claude Code
-
-(If you haven’t already)
+### 1. Install Claude Code
+If not installed:
 https://docs.anthropic.com/claude-code
 
-2. Place your resume inside score_jobs.claud
+### 2. Put your resume inside `score_jobs.claud`
+Your prompt already includes:
 
-Your scoring prompt already contains:
-	-	Your tech stack
-	-	Your experience
-	-	Your seniority
-	-	Your preferences
+- Your tech stack  
+- Your experience  
+- Your seniority  
+- Your job preferences  
 
-3. Run scoring
+Simply update that section as needed.
 
-Use the job-scorer skill to score my jobs.csv
+### 3. Run scoring
 
-Basic usage:
-
+#### Basic scoring:
+```bash
 claude code score_jobs.claud jobs.csv
+```
 
-Save output:
-
+#### Save output:
+```bash
 claude code score_jobs.claud jobs.csv --output scored_jobs.csv
+```
 
-Filter top matches:
-
+#### Filter top matches:
+```bash
 claude code score_jobs.claud jobs.csv --filter "score >= 7" --output top_jobs.csv
+```
 
+---
 
-⸻
+## ⭐ Scoring Breakdown
 
-⭐ Scoring Breakdown
+Claude outputs:
 
-Claude assigns:
+| Column           | Meaning                                       |
+|------------------|-----------------------------------------------|
+| `fit_score`      | 0–10 compatibility rating                     |
+| `score_reasoning`| Why it scored that way                        |
+| `red_flags`      | Seniority mismatch, 5+ YOE, internship, etc   |
+| `recommendation` | Apply / Consider / Skip                       |
 
-Column	Meaning
-fit_score	0–10 compatibility rating
-score_reasoning	Why it scored that way
-red_flags	Seniority mismatch, 5+ years required, internship, etc
-recommendation	Apply / Consider / Skip
+### Example Output
 
-Example:
-
+```text
 job_id,title,company,fit_score,score_reasoning,recommendation
 1,Jr Data Engineer,CAA,8,"Azure + Python match; perfect seniority",Apply
-3,Senior Data Engineer,Meta,2,"Requires 7+ years exp",Skip
+3,Senior Data Engineer,Meta,2,"Requires 7+ years experience",Skip
+```
 
-
-⸻
+---
 
 ## 🧠 Resume Updating
 
-Whenever you gain new skills:
-	1.	Open score_jobs.claud
-	2.	Update your profile section
-	3.	Claude will use your new skillset automatically
+Whenever your skillset changes:
 
-Highly recommended to keep this updated since it directly impacts score accuracy.
+1. Open `score_jobs.claud`
+2. Update the **My Profile** section  
+3. Claude will score future job descriptions based on your new skills automatically
 
-⸻
+Keeping this updated improves scoring accuracy significantly.
 
-This system lets you:
-	-	Automatically collect jobs
-	-	Automatically score jobs
-	-	Avoid both senior roles & internships
-	-	Save hours of manual review
-	-	Auto-rank opportunities based on your exact background
+---
+
+## 🎯 What This System Gives You
+
+- Automated job scraping  
+- Automated job scoring  
+- Avoids senior roles + internships  
+- Saves hours of manual review  
+- Ranks roles automatically based on:  
+  - Your tech stack  
+  - Your seniority  
+  - Your experience  
+  - Your preferences  
+
+---
