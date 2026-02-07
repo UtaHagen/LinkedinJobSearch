@@ -66,7 +66,7 @@ job-search/
 ├── pyproject.toml        
 ├── uv.lock
 └── .venv/                # Python virtual environment
-
+```
 
 ⸻
 
