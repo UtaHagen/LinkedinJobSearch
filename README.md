@@ -46,21 +46,26 @@ This project fully automates your job search workflow:
 ---
 
 ## 📁 Project Structure
+
+```text
 job-search/
 │
-├── main.py                 # Playwright job scraper (multi-page)
-├── save_state.py           # Saves LinkedIn login cookies (one-time)
-├── linkedin_state.json     # Auto-generated cookie/session state
+├── main.py               # Playwright job scraper (multi-page)
+├── save_state.py         # Saves LinkedIn login cookies (one-time)
+├── linkedin_state.json   # Auto-generated cookie/session state
 │
-├── jobs.csv                # Raw scraped job data (output of main.py)
-├── scored_jobs.csv         # AI-evaluated scoring file (Claude output)
+├── jobs.csv              # Raw scraped job data (output of main.py)
+├── scored_jobs.csv       # AI-evaluated scoring file (Claude output)
 │
-├── score_jobs.claud        # Claude scoring instructions + your resume
-├── README.md               # <== this file
+├── score_jobs.claud      # Claude scoring instructions + your resume
+├── score_jobs.py         # Local scoring (Python-only)
 │
-├── .venv/                  # Python virtual environment
-├── pyproject.toml
-└── uv.lock
+├── scoring_skills.py     # Keyword definitions used in scoring
+│
+├── README.md             # <— this file
+├── pyproject.toml        
+├── uv.lock
+└── .venv/                # Python virtual environment
 
 
 ⸻
@@ -111,13 +116,13 @@ All future scrapes will load your session automatically.
 python main.py
 
 It will:
-	•	Navigate to LinkedIn job search results
-	•	Iterate pages (Next button)
-	•	Collect each job card
-	•	Click one-by-one
-	•	Expand “…more”
-	•	Extract full job description
-	•	Save everything into:
+	-	Navigate to LinkedIn job search results
+	-	Iterate pages (Next button)
+	-	Collect each job card
+	-	Click one-by-one
+	-	Expand “…more”
+	-	Extract full job description
+	-	Save everything into:
 
 jobs.csv
 
@@ -139,10 +144,10 @@ https://docs.anthropic.com/claude-code
 2. Place your resume inside score_jobs.claud
 
 Your scoring prompt already contains:
-	•	Your tech stack
-	•	Your experience
-	•	Your seniority
-	•	Your preferences
+	-	Your tech stack
+	-	Your experience
+	-	Your seniority
+	-	Your preferences
 
 3. Run scoring
 
@@ -194,8 +199,8 @@ Highly recommended to keep this updated since it directly impacts score accuracy
 ⸻
 
 This system lets you:
-	•	Automatically collect jobs
-	•	Automatically score jobs
-	•	Avoid both senior roles & internships
-	•	Save hours of manual review
-	•	Auto-rank opportunities based on your exact background
+	-	Automatically collect jobs
+	-	Automatically score jobs
+	-	Avoid both senior roles & internships
+	-	Save hours of manual review
+	-	Auto-rank opportunities based on your exact background
