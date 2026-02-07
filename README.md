@@ -1,49 +1,51 @@
-Job Search Workflow:
-
-Auto-collect LinkedIn job postings and automatically score them using Claude Code — no API costs, no copy-pasting.
+# 🔎 Automated LinkedIn Job Search
 
 This project fully automates your job search workflow:
-1.	Playwright Scraper
-	•	Opens LinkedIn
-	•	Uses your saved login session
-	•	Scrapes all pages of job postings
-	•	Expands “…more”
-	•	Extracts title, company, description, and URL
-	•	Saves results into jobs.csv
-2.	Claude Code Scoring
-	•	Reads your resume (inside score_jobs.claud)
-	•	Reads jobs.csv
-	•	Scores each job (0–10), including fit reason + flags
-	•	Writes scored_jobs.csv
-	•	Automatically resumes from last checkpoint
-	•	No API key required (Claude Code runs locally on your laptop)
 
-⸻
+1. **Playwright Scraper**  
+   Opens LinkedIn → Uses your saved login session → Scrapes all job postings →  
+   Expands "...more" → Extracts title, company, description, and URL →  
+   Saves results into `jobs.csv`
 
-🚀 Features
+2. **Claude Code Scoring**  
+   Reads your resume (`score_jobs.claud`) → Reads `jobs.csv` →  
+   Scores each job (0–10) with reasoning + flags → Writes `scored_jobs.csv`  
+   *No API key required — Claude Code runs locally.*
 
-✔ Automated scraping
-	•	Handles multiple pages
-	•	Expands hidden job descriptions
-	•	Detects sponsorship red flags
-	•	Saves clean structured job data
+---
 
-✔ AI scoring without API cost
-	•	Uses Claude Code, not an API
-	•	Scans your resume once
-	•	Scores each job based on experience, tech stack, seniority
+## 🚀 Features
 
-✔ Resume + CSV → Scored spreadsheet
-	•	Create ranked job lists
-	•	Filter for best matches
-	•	Avoid applying to senior roles / internship spam
+### ✔ Automated Scraping
+- Handles pagination  
+- Expands hidden descriptions  
+- Detects sponsorship red flags  
+- Saves clean structured job data  
 
-⸻
+### ✔ AI Scoring (Free, Local, Fully Automated)
+- Uses **Claude Code**, not an API  
+- Reads your resume once  
+- Scores jobs based on:  
+  - Tech stack  
+  - Role fit  
+  - Seniority  
+  - Cloud tools  
+  - AI/ML experience  
+- Generates:  
+  - `fit_score`  
+  - `reasoning`  
+  - `red_flags`  
+  - Recommended action (Apply / Skip)
 
-📂 Project Structure
+### ✔ Resume + CSV → Scored Spreadsheet
+- Clean Excel or CSV output  
+- Rank jobs  
+- Focus on best-fit roles  
+- Avoid senior-level & sponsorship-blocked roles  
 
-Your repo should look like this:
+---
 
+## 📁 Project Structure
 job-search/
 │
 ├── main.py                 # Playwright job scraper (multi-page)
@@ -63,7 +65,7 @@ job-search/
 
 ⸻
 
-🛠 Installation
+## 🛠 Installation
 
 1. Clone the project
 
@@ -87,7 +89,7 @@ playwright install
 
 ⸻
 
-🔐 Step 1 — Save your LinkedIn login session
+## 🔐 Step 1 — Save your LinkedIn login session
 
 Run this once:
 
@@ -104,7 +106,7 @@ All future scrapes will load your session automatically.
 
 ⸻
 
-🕷 Step 2 — Run the job scraper
+## 🕷 Step 2 — Run the job scraper
 
 python main.py
 
@@ -180,7 +182,7 @@ job_id,title,company,fit_score,score_reasoning,recommendation
 
 ⸻
 
-🧠 Resume Updating
+## 🧠 Resume Updating
 
 Whenever you gain new skills:
 	1.	Open score_jobs.claud
@@ -188,36 +190,6 @@ Whenever you gain new skills:
 	3.	Claude will use your new skillset automatically
 
 Highly recommended to keep this updated since it directly impacts score accuracy.
-
-⸻
-
-🧱 Optional Improvements
-
-You can extend this project with:
-	•	Auto-apply to high-score jobs
-	•	Auto-email tracking
-	•	SQL database for storing job history
-	•	Notion integration
-	•	Cron scheduler for daily scans
-
-⸻
-
-🧪 Troubleshooting
-
-Scraper finds 0 jobs
-
-→ LinkedIn changed selectors; update CSS selectors in main.py
-→ Or: LinkedIn blocked session — run save_state.py again.
-
-“…more” fails to click
-
-→ Add a longer wait
-→ Try alternative selectors (button[data-testid="expandable-text-button"])
-
-Claude Code runs slowly
-
-→ Job descriptions are long; work in batches
-→ Use filters to skip irrelevant jobs first
 
 ⸻
 
