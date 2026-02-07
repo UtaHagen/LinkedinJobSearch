@@ -160,7 +160,7 @@ job_id,title,company,location,description,linkedin_url
 
 ---
 
-## 🤖 Step 3 — Score your jobs using Claude Code (FREE)
+## 🤖 Step 3 — Score your jobs using Claude Code
 
 ### 1. Install Claude Code
 If not installed:
