@@ -1,9 +1,9 @@
-# 🔎 Automated LinkedIn Job Search
+# 🔎 Automated Job Search
 
 This project fully automates your job search workflow:
 
-1. **Playwright Scraper**  
-   Opens LinkedIn → Uses your saved login session → Scrapes all job postings →  
+1. **Playwright Automation**  
+   Opens website → Uses your saved login session → Find all job postings →  
    Expands "...more" → Extracts title, company, description, and URL →  
    Saves results into `jobs.csv`
 
@@ -50,11 +50,11 @@ This project fully automates your job search workflow:
 ```text
 job-search/
 │
-├── main.py               # Playwright job scraper (multi-page)
-├── save_state.py         # Saves LinkedIn login cookies (one-time)
+├── main.py               # Playwright job searcher (multi-page)
+├── save_state.py         # Saves login cookies (one-time)
 ├── linkedin_state.json   # Auto-generated cookie/session state
 │
-├── jobs.csv              # Raw scraped job data (output of main.py)
+├── jobs.csv              # Raw job data (output of main.py)
 ├── scored_jobs.csv       # AI-evaluated scoring file (Claude output)
 │
 ├── score_jobs.claud      # Claude scoring instructions + your resume
@@ -101,7 +101,7 @@ playwright install
 
 ---
 
-## 🔐 Step 1 — Save your LinkedIn login session
+## 🔐 Step 1 — Save your login session
 
 Run this *once*:
 
@@ -111,7 +111,7 @@ python save_state.py
 
 A Chrome window will open.
 
-1. Log in to LinkedIn manually  
+1. Log in manually  
 2. Wait for your feed to load  
 3. Return to the terminal  
 4. Press **Enter**  
@@ -122,11 +122,11 @@ This generates:
 linkedin_state.json
 ```
 
-All future scrapes will automatically load your saved login session.
+All future runs will automatically load your saved login session.
 
 ---
 
-## 🕷 Step 2 — Run the job scraper
+## 🕷 Step 2 — Run the job searcher
 
 ```bash
 python main.py
@@ -134,7 +134,7 @@ python main.py
 
 This script will:
 
-- Open LinkedIn job search
+- Open job search
 - Iterate through pages (Next → Next → Next…)
 - Collect all job cards
 - Click each job
@@ -154,8 +154,8 @@ jobs.csv
 ### Example CSV structure
 
 ```text
-job_id,title,company,location,description,linkedin_url
-1,Data Engineer,Cisco,Remote,"full jd text...",https://linkedin.com/jobs/view/...
+job_id,title,company,location,description,url
+1,Data Engineer,Cisco,Remote,"full jd text...",https://xx.com/jobs/view/...
 ```
 
 ---
@@ -230,7 +230,7 @@ Keeping this updated improves scoring accuracy significantly.
 
 ## 🎯 What This System Gives You
 
-- Automated job scraping  
+- Automated job searching  
 - Automated job scoring  
 - Avoids senior roles + internships  
 - Saves hours of manual review  
